@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk, messagebox, simpledialog
+from tkinter import ttk, messagebox
 import boto3
 import configparser
 import os
@@ -12,7 +12,7 @@ class AWSCredentialManager:
         master.title("AWS User and Credentials Manager")
 
         self.config = configparser.ConfigParser()
-        self.credentials_file = os.path.expanduser("~/.aws/credentials")
+        self.credentials_file = os.path.join(os.path.expanduser('~'), '.aws', 'credentials')
         self.config.read(self.credentials_file)
         self.profiles = self.config.sections()
 
@@ -217,9 +217,9 @@ class AWSCredentialManager:
             messagebox.showerror("Error", f"An error occurred: {e}")
 
     def remove_user_and_credentials(self):
-        username_to_remove = self.username_entry.get()  # Use the existing username entry
-        selected_profile = self.profile_var.get()       # Use the existing profile dropdown
-        bucket_name_for_policy = self.bucket_entry.get() # Use the existing bucket entry for policy removal
+        username_to_remove = self.username_entry.get() 
+        selected_profile = self.profile_var.get()       
+        bucket_name_for_policy = self.bucket_entry.get() 
 
         if not username_to_remove:
             messagebox.showerror("Error", "Please enter the username to remove.")
